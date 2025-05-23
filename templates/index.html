@@ -1,0 +1,54 @@
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Spam zLocket API</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #111;
+      color: #eee;
+      text-align: center;
+      padding: 50px;
+    }
+    input, button {
+      padding: 10px;
+      font-size: 16px;
+      margin: 10px;
+    }
+    #result {
+      margin-top: 20px;
+      font-weight: bold;
+      color: #0f0;
+    }
+  </style>
+</head>
+<body>
+  <h1>Spam zLocket Tool</h1>
+  <input type="text" id="username" placeholder="Nhập username" />
+  <button onclick="sendSpam()">Gửi Spam</button>
+  <div id="result"></div>
+
+  <script>
+    async function sendSpam() {
+      const username = document.getElementById('username').value;
+      const resultDiv = document.getElementById('result');
+      resultDiv.textContent = 'Đang gửi...';
+
+      try {
+        const response = await fetch('/spam', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ username: username })
+        });
+
+        const data = await response.json();
+        resultDiv.textContent = 'Kết quả: ' + JSON.stringify(data);
+      } catch (error) {
+        resultDiv.textContent = 'Lỗi: ' + error.message;
+      }
+    }
+  </script>
+</body>
+</html>

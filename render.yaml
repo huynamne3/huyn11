@@ -1,0 +1,10 @@
+
+services:
+  - type: web
+    name: zlocket-api
+    env: python
+    plan: free
+    buildCommand: ""
+    startCommand: "python main.py"
+    branch: main
+    autoDeploy: true
