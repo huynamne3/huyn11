@@ -439,7 +439,7 @@ class zLocket:
         self._zlocket_panel_()
     def _input_(self, prompt_text="", section="config"):
         print(
-            f"{xColor.CYAN}┌──({xColor.NEON_GREEN}root@thanhdieu{xColor.CYAN})-[{xColor.PURPLE}{section}{xColor.CYAN}]")
+            f"{xColor.CYAN}┌──({xColor.NEON_GREEN}root@dangxuangiang{xColor.CYAN})-[{xColor.PURPLE}{section}{xColor.CYAN}]")
         print(f"{xColor.CYAN}└─{xColor.RED}$ {xColor.WHITE}{prompt_text}")
         sys.stdout.write(f"  {xColor.YELLOW}>>> {xColor.RESET}")
         sys.stdout.flush()
@@ -629,7 +629,7 @@ def _rand_str_(length=10, chars=string.ascii_lowercase + string.digits):
 def _rand_name_():
     return _rand_str_(8, chars=string.ascii_lowercase)
 def _rand_email_():
-    return f"{_rand_str_(15)}@thanhdieu.com"
+    return f"{_rand_str_(15)}@dangxuangiang.site"
 def _rand_pw_():
     return 'zlocket' + _rand_str_(4)
 def _clear_():
@@ -1128,5 +1128,8 @@ def main():
     config._blinking_("CONNECTION TERMINATED", blinks=3)
     sys.stdout.flush()
 if __name__ == "__main__":
+    import sys
+    target = sys.argv[1] if len(sys.argv) > 1 else ""
+    
     config=zLocket()
     main()
