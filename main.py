@@ -1,21 +1,22 @@
-
-from flask import Flask, request, jsonify
-from zLocket_Tool import run_spam  # Hàm spam cần định nghĩa sẵn trong zLocket_Tool.py
+from flask import Flask, request, render_template
+import threading
+import os
 
 app = Flask(__name__)
 
 @app.route('/')
-def home():
-    return "API zLocket Tool đang hoạt động."
+def index():
+    return render_template('index.html')
 
-@app.route('/spam', methods=['POST'])
-def spam():
-    data = request.get_json()
-    username = data.get('username')
-    if not username:
-        return jsonify({"error": "Thiếu username"}), 400
-    result = run_spam(username)
-    return jsonify(result)
+@app.route('/start', methods=['POST'])
+def start_spam():
+    target_uid = request.form['target_uid']
+
+    def run_tool():
+        os.system(f'python3 zLocket_Tool.py "{target_uid}"')
+
+    threading.Thread(target=run_tool).start()
+    return f"Đang chạy tool spam cho UID/link: {target_uid}"
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=10000)
+    app.run(debug=True)
