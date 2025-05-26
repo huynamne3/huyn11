@@ -1,15 +1,39 @@
+
 <!DOCTYPE html>
-<html lang="vi">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <title>Spam Locket</title>
+    <meta charset="UTF-8">
+    <title>zLocket Web Tool 🚀</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; background: #f0f0f0; }
+        form { background: white; padding: 20px; border-radius: 8px; max-width: 600px; margin: auto; }
+        input, select, button { width: 100%; margin-top: 10px; padding: 10px; border-radius: 5px; border: 1px solid #ccc; }
+        button { background-color: #007bff; color: white; font-weight: bold; }
+        .result { margin-top: 20px; background: #e2f0d9; padding: 15px; border-radius: 5px; border: 1px solid #a0c29c; }
+    </style>
 </head>
 <body>
-  <h2>Tool Spam Locket</h2>
-  <form action="/start" method="post">
-    <label>Nhập UID hoặc link Locket:</label><br>
-    <input type="text" name="target_uid" required><br><br>
-    <button type="submit">Bắt đầu spam</button>
-  </form>
+    <h2 style="text-align: center;">zLocket Web Tool 🚀</h2>
+    <form method="POST">
+        <label>🔗 Username hoặc Link Locket:</label>
+        <input type="text" name="username" required placeholder="https://locket.cam/... hoặc locket.camera/...">
+
+        <label>📝 Username Custom (tối đa 20 ký tự):</label>
+        <input type="text" name="custom_name" maxlength="20" placeholder="By DangXuanGiang.Site">
+
+        <label>🎲 Random Emoji:</label>
+        <select name="emoji">
+            <option value="y" selected>Bật (ON)</option>
+            <option value="n">Tắt (OFF)</option>
+        </select>
+
+        <button type="submit">🚀 Gửi Kết Bạn</button>
+    </form>
+
+    {% if result %}
+    <div class="result">
+        {{ result|safe }}
+    </div>
+    {% endif %}
 </body>
 </html>
