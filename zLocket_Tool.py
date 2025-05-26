@@ -8,7 +8,6 @@
 # ==================================
 import sys
 import subprocess
-_install_()
 import os, re, time, json, queue, string, random, threading, datetime
 from queue import Queue
 from itertools import cycle
