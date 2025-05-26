@@ -7,24 +7,9 @@ from zLocket_Tool import (
     _rand_email_,
     _rand_pw_,
     _rand_str_,
-    format_proxy
 )
-import pprint
-import random
 
 app = Flask(__name__)
-
-# Đọc proxy.txt và parse thành danh sách proxy_dicts
-def load_proxies():
-    try:
-        with open("proxy.txt", "r") as f:
-            proxy_lines = [line.strip() for line in f if line.strip() and not line.startswith("#")]
-            return [format_proxy(p) for p in proxy_lines]
-    except Exception as e:
-        print(f"Lỗi đọc proxy.txt: {e}")
-        return []
-
-proxies = load_proxies()
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
@@ -54,7 +39,6 @@ def index():
             for i in range(10):  # gửi 10 lần liên tục
                 email = _rand_email_()
                 password = _rand_pw_()
-                proxy = random.choice(proxies) if proxies else None
 
                 # Tạo tài khoản
                 payload = {
@@ -77,18 +61,18 @@ def index():
                     logs += f"❌ [{i+1}] Không tạo được tài khoản.<br>"
                     continue
 
-                id_token = step1b_sign_in(email, password, thread_id=i, proxies_dict=proxy)
+                id_token = step1b_sign_in(email, password, thread_id=i, proxies_dict=None)
                 if not id_token:
                     failure_count += 1
                     logs += f"❌ [{i+1}] Đăng nhập thất bại.<br>"
                     continue
 
-                if not step2_finalize_user(id_token, thread_id=i, proxies_dict=proxy):
+                if not step2_finalize_user(id_token, thread_id=i, proxies_dict=None):
                     failure_count += 1
                     logs += f"❌ [{i+1}] Không gửi profile.<br>"
                     continue
 
-                send_result = step3_send_friend_request(id_token, thread_id=i, proxies_dict=proxy)
+                send_result = step3_send_friend_request(id_token, thread_id=i, proxies_dict=None)
 
                 if send_result is True:
                     success_count += 1
