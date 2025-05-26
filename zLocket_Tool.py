@@ -8,54 +8,6 @@
 # ==================================
 import sys
 import subprocess
-def _install_():
-    try:
-        from colorama import Fore, Style, init
-        init()
-    except ImportError:
-        class DummyColors:
-            def __getattr__(self, name):
-                return ''
-        Fore=Style=DummyColors()
-    def itls(pkg):
-        try:
-            __import__(pkg)
-            return True
-        except ImportError:
-            return False
-    _list_={
-        'requests': 'requests',
-        'tqdm': 'tqdm',
-        'colorama': 'colorama',
-        'pystyle': 'pystyle',
-        'urllib3': 'urllib3',
-    }
-    _pkgs=[pkg_name for pkg_name in _list_ if not itls(pkg_name)]
-    if _pkgs:
-        print(f"{Fore.CYAN}{'=' * 50}{Style.RESET_ALL}")
-        print(
-            f"{Fore.YELLOW}[!] Bạn chưa có thư viện: {Fore.RED}{', '.join(_pkgs)}{Style.RESET_ALL}")
-        print(f"{Fore.CYAN}{'=' * 50}{Style.RESET_ALL}")
-        install=input(
-            f"{Fore.GREEN}[?] Bạn có muốn cài đặt thư viện này không? (y/n): {Style.RESET_ALL}")
-        if install.lower() == 'y':
-            print(f"{Fore.BLUE}[*] Đang cài đặt thư viện...{Style.RESET_ALL}")
-            try:
-                subprocess.check_call(
-                    [sys.executable, '-m', 'pip', 'install', *_pkgs])
-                print(f"{Fore.GREEN}[✓] Cài đặt thành công!{Style.RESET_ALL}")
-            except subprocess.CalledProcessError:
-                print(
-                    f"{Fore.RED}[✗] Lỗi cài đặt, hãy thử cài tay bằng lệnh sau:{Style.RESET_ALL}")
-                print(f"{Fore.YELLOW}pip install {' '.join(_pkgs)}{Style.RESET_ALL}")
-                input("Nhấn Enter để thoát...")
-                sys.exit(1)
-        else:
-            print(
-                f"{Fore.YELLOW}[!] Cần có thư viện để tool hoạt động, cài bằng lệnh:{Style.RESET_ALL}")
-            print(f"{Fore.GREEN}pip install {' '.join(_pkgs)}{Style.RESET_ALL}")
-            input("Nhấn Enter để thoát...")
-            sys.exit(1)
 _install_()
 import os, re, time, json, queue, string, random, threading, datetime
 from queue import Queue
